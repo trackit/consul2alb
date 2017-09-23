@@ -1,0 +1,26 @@
+:Author: Victor Schubert
+:Email: <victor@trackit.io>
+:Date: 2017-09-23
+
+== consul2alb
+
+_consul2alb_ keeps an ALB target group’s list of instance-port couples with
+Consul’s list of node-port couples for a given service name.
+
+WARNING: This script assumes the Consul node names for your instances are
+identical to their EC2 instance IDs.
+
+=== How to
+
+_consul2alb_ will listen to changes in Consul’s list of services for a given
+service name, and on each change will issue an API call to update an ALB target
+group. The script will keep running until you stop it. You can use the
+Dockerfile if you don’t want to deal with dependencies.
+
+The program needs two environment variables to be provided:
+
+`CONSUL2ALB_SERVICE_NAME` ~Required~::
+	The name of the service in Consul.
+
+`CONSUL2ALB_TARGET_GROUP_ARN` ~Required~::
+	The ARN of the ALB target group.
